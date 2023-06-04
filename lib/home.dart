@@ -19,6 +19,8 @@ class _HomeState extends State<Home> {
   int _nowDay = 0;
   String _nowSleep = "";
 
+  int _modalIconNumber = 1;
+
   // 버튼 활성상태(0: 비활성, 1:작은보상, 2:완료보상)
   int _isButtonOn = 0;
   Color _buttonColor = Colors.grey;
@@ -39,11 +41,11 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Future<void> _addData(String name, int value) async{
+  Future<void> _addMoney(int value) async{
     setState(() {
-      print("add");
+      _nowMoney += value;
     });
-    await _prefs.setInt(name, value);
+    await _prefs.setInt('myMoney', _nowMoney);
   }
 
   Future<void> _changeTime(String value) async{
@@ -59,7 +61,32 @@ class _HomeState extends State<Home> {
     await _prefs.setInt('myDay', _nowDay);
   }
 
+  void _openModal() {
+    _modalIconNumber = Random().nextInt(30) + 1;
 
+    bool isModalClicked = false;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            //child: isModalClicked ? Image.asset('lib/assets/randombox.jpg'), : Text('$_modalIconNumber'),
+            child: Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
+            onTap: () {
+              Navigator.of(context).pop();
+
+              setState(() {
+                _isButtonDisabled = true;
+                _addMoney(_modalIconNumber);
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -316,6 +343,7 @@ class _HomeState extends State<Home> {
                             // 버튼이 클릭되었을 때 수행할 작업
                             if(_isButtonOn == 2) {
                               // 완료보상
+                              _openModal();
                               bool isRewardOpen = false;
 
                               _addCount(_nowDay);
