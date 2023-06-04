@@ -1,7 +1,6 @@
-import 'package:dream_walk/setting.dart';
-import 'package:dream_walk/shopping.dart';
 import 'package:flutter/material.dart';
-
+import 'setting.dart';
+import 'shopping.dart';
 import 'analyze.dart';
 import 'home.dart';
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Dream Walk',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
