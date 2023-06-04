@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   int _nowDay = 0;
   String _nowSleep = "";
 
-  int _modalIconNumber = 1;
+  int _getRandomMoney = 0;
 
   // 버튼 활성상태(0: 비활성, 1:작은보상, 2:완료보상)
   int _isButtonOn = 0;
@@ -62,24 +62,79 @@ class _HomeState extends State<Home> {
   }
 
   void _openModal() {
-    _modalIconNumber = Random().nextInt(30) + 1;
-
-    bool isModalClicked = false;
-
+    _getRandomMoney = Random().nextInt(30) + 1;
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           content: GestureDetector(
-            //child: isModalClicked ? Image.asset('lib/assets/randombox.jpg'), : Text('$_modalIconNumber'),
-            child: Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              height: MediaQuery.of(context).size.height * 0.3, // 화면의 50% 너비로 설정
+              child: Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
+            ),
             onTap: () {
               Navigator.of(context).pop();
+              setState(() {
+                _openTextModal();
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
 
+  void _openTextModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              height: MediaQuery.of(context).size.height * 0.3, // 화면의 50% 너비로 설정
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Center(
+                  child: Text('$_getRandomMoney point 획득!!'
+                      '(클릭시 닫기)'),
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
               setState(() {
                 _isButtonDisabled = true;
-                _addMoney(_modalIconNumber);
+                _addMoney(_getRandomMoney);
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _openAdModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              child: Image.asset('lib/assets/ad.png', fit:BoxFit.cover,),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              setState(() {
+                _openModal();
+                //_isButtonDisabled = true;
+                // _addMoney(_getRandomMoney);
               });
             },
           ),
@@ -90,10 +145,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -343,13 +394,13 @@ class _HomeState extends State<Home> {
                             // 버튼이 클릭되었을 때 수행할 작업
                             if(_isButtonOn == 2) {
                               // 완료보상
-                              _openModal();
+                              _openAdModal();
                               bool isRewardOpen = false;
 
                               _addCount(_nowDay);
                             } else if(_isButtonOn == 1) {
                               // 작은보상
-
+                              _openAdModal();
                             }
                           },
                           style: ElevatedButton.styleFrom(
