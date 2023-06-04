@@ -1,4 +1,9 @@
+import 'package:dream_walk/setting.dart';
+import 'package:dream_walk/shopping.dart';
 import 'package:flutter/material.dart';
+
+import 'analyze.dart';
+import 'home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,8 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _currentIndex = 0;
 
+  final List<Widget> tabs = [
+    Home(),
+    Analyze(),
+    Shopping(),
+    Setting(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    debugShowCheckedModeBanner: false;
     return Scaffold(
       appBar: AppBar(),
       bottomNavigationBar: BottomNavigationBar(
@@ -57,12 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '메인'),
           BottomNavigationBarItem(icon: Icon(Icons.equalizer), label: 'analyze'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.storefront), label: 'shopping'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting'),
         ],
       ),
+      body : tabs[_currentIndex],
     );
   }
 }
