@@ -32,7 +32,7 @@ class Home extends StatelessWidget{
                       return Container(
                         width: imageSize,
                         height: imageSize,
-                        child: Image.asset('lib/images/logo.png'),
+                        child: Image.asset('lib/assets/logo.png'),
                       );
                     },
                   ),
