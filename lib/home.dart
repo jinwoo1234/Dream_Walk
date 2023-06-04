@@ -1,10 +1,50 @@
-// tabs/tab_cart.dart
+
+import 'package:dream_walk/sharedMoney.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatelessWidget{
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
+class _HomeState extends State<Home> {
+  late SharedPreferences _prefs;
+  int _nowMoney = 0;
+  int _nowDay = 0;
+  String _nowSleep = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSharedPreferences();
+  }
+
+  Future<void> _loadSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nowMoney = _prefs.getInt('myMoney') ?? 1233;
+      _nowDay = _prefs.getInt('myDay') ?? 2;
+      _nowSleep = _prefs.getString('mySleep') ?? "6:00";
+    });
+
+  }
+
+  Future<void> _addData(String name, int value) async{
+    setState(() {
+      print("add");
+    });
+    await _prefs.setInt(name, value);
+  }
+
+  Future<void> _addCount(int count) async {
+    setState(() {
+      _nowDay++;
+    });
+    await _prefs.setInt('myDay', _nowDay);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +82,7 @@ class Home extends StatelessWidget{
                     },
                   ),
                 ),
-                // 60% 크기의 텍스트 영역
+                // 가운데 돈 영역
                 Expanded(
                   flex:68,
                   child: Container(
@@ -74,7 +114,7 @@ class Home extends StatelessWidget{
                                       flex: 6, // 왼쪽 여백을 부모의 20%로 설정
                                       child: Container(
                                         child: Text(
-                                          '10000',
+                                          '$_nowMoney',
                                           style: TextStyle(fontSize: 34),
                                           textAlign: TextAlign.right, // 텍스트를 우측으로 정렬
                                         ),
@@ -104,7 +144,7 @@ class Home extends StatelessWidget{
                     ),
                   ),
                 ),
-                // 15% 크기의 버튼 영역
+                // 사용자페이지 영역
                 Expanded(
                   flex: 20,
                   child: Center(
@@ -118,6 +158,15 @@ class Home extends StatelessWidget{
                           child: InkWell(
                             onTap: () {
                               // 버튼이 클릭되었을 때 수행할 작업
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    content:
+                                    Text('사용자 설정 페이지 추가 예정 입니다 🤗', textAlign: TextAlign.center),
+                                  );
+                                },
+                              );
                             },
                             borderRadius: BorderRadius.circular(100.0),
                             child: Container(
@@ -165,7 +214,7 @@ class Home extends StatelessWidget{
                         ),
                         child: Center(
                           child: Text(
-                            '10000',
+                            _nowSleep,
                             style: TextStyle(fontSize: 36),
                           ),
                         ),
@@ -178,7 +227,7 @@ class Home extends StatelessWidget{
                       color: Colors.yellow,
                       child: Center(
                         child: Text(
-                          'Day + 6',
+                          'Day + $_nowDay',
                           style: TextStyle(fontSize: 24),
                         ),
                       ),
@@ -205,6 +254,7 @@ class Home extends StatelessWidget{
                         child: ElevatedButton(
                           onPressed: () {
                             // 버튼이 클릭되었을 때 수행할 작업
+                            _addCount(_nowDay);
                           },
                           style: ElevatedButton.styleFrom(
 
