@@ -8,109 +8,121 @@ class Shopping extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            padding: EdgeInsets.only(top: 20.0),
-            child: Wrap(
-              spacing: 16.0, // 열 사이의 간격
-              runSpacing: 16.0, // 행 사이의 간격
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(8.0),
+        appBar: AppBar(
+          title: Text('10000P'),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Icon(Icons.account_balance_wallet),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Wrap(
+                spacing: 16.0, // 열 사이의 간격
+                runSpacing: 20.0, // 행 사이의 간격
+                children: [
+                  BoxItem(
+                    imagePath: 'lib/assets/partner4.jpg',
+                    title: '침팬치와 뽀뽀하기',
+                    points: '1000P',
                   ),
-                  child: Center(
-                    child: Text(
-                      '첫 번째 박스',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                  BoxItem(
+                    imagePath: 'lib/assets/partner3.jpg',
+                    title: '오랑우탄 방구맡기',
+                    points: '2000P',
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8.0),
+                  BoxItem(
+                    imagePath: 'lib/assets/partner2.jpg',
+                    title: '고릴라와 데이트',
+                    points: '5000p',
                   ),
-                  child: Center(
-                    child: Text(
-                      '두 번째 박스',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                  BoxItem(
+                    imagePath: 'lib/assets/partner1.jpg',
+                    title: '+1(더블데이트)',
+                    points: '8000P',
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(8.0),
+                  BoxItem(
+                    imagePath: 'lib/assets/dogecoin.jpg',
+                    title: '도지',
+                    points: '100P',
                   ),
-                  child: Center(
-                    child: Text(
-                      '세 번째 박스',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                  BoxItem(
+                    imagePath: 'lib/assets/dogecoin.jpg',
+                    title: '도지',
+                    points: '100P',
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(8.0),
+                  BoxItem(
+                    imagePath: 'lib/assets/dogecoin.jpg',
+                    title: '도지',
+                    points: '100P',
                   ),
-                  child: Center(
-                    child: Text(
-                      '네 번째 박스',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                  BoxItem(
+                    imagePath: 'lib/assets/dogecoin.jpg',
+                    title: '도지',
+                    points: '100P',
                   ),
-                ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.purple,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '다섯 번째 박스',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class BoxItem extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final String points;
+
+  BoxItem({
+    required this.imagePath,
+    required this.title,
+    required this.points,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 150,
+          height: 150,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imagePath),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        SizedBox(height: 8.0),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          points,
+          style: TextStyle(
+            color: Colors.amber,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
