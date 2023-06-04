@@ -65,6 +65,7 @@ flutter:
     - lib/assets/partner1.jpg
     - lib/assets/partner2.jpg
     - lib/assets/partner3.jpg
+    - lib/assets/partner4.jpg
     - lib/assets/dogecoin.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
