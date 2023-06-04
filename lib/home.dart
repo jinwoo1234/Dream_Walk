@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget{
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +19,11 @@ class Home extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 2,
+                  child: Container(),
+                ),
+                Expanded(
+                  flex: 4,
                   child: Container(),
                 ),
                 // 15% 크기의 이미지 영역
@@ -143,32 +148,38 @@ class Home extends StatelessWidget{
           Expanded(
             flex: 6,
             child: Container(
-              color: Colors.grey[200],
               child: Center(
-                child: Stack(
-                  alignment: Alignment.bottomRight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // 큰 텍스트 박스
                     Container(
-                      width: 0.8 * MediaQuery.of(context).size.width,
-                      height: 0.6 * MediaQuery.of(context).size.height,
-                      color: Colors.white,
-                      child: Center(
-                        child: Text(
-                          '큰 텍스트 박스',
-                          style: TextStyle(fontSize: 24),
+                      width: 0.6 * MediaQuery.of(context).size.width,
+                      height: 0.2 * MediaQuery.of(context).size.height,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '10000',
+                            style: TextStyle(fontSize: 36),
+                          ),
                         ),
                       ),
-                    ),
-                    // 작은 텍스트 박스
+                    ),// 원하는 크기로 조정
                     Container(
-                      width: 0.2 * MediaQuery.of(context).size.width,
-                      height: 0.1 * MediaQuery.of(context).size.height,
+                      alignment: Alignment.topRight,
+                      width: 0.25 * MediaQuery.of(context).size.width,
+                      height: 0.06 * MediaQuery.of(context).size.height,
                       color: Colors.yellow,
                       child: Center(
                         child: Text(
-                          '작은 텍스트 박스',
-                          style: TextStyle(fontSize: 12),
+                          'Day + 6',
+                          style: TextStyle(fontSize: 24),
                         ),
                       ),
                     ),
@@ -181,25 +192,37 @@ class Home extends StatelessWidget{
           Expanded(
             flex: 2,
             child: Container(
-              width: 200.0,
-              height: 200.0,
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  double buttonWidth = constraints.maxWidth * 0.25; // Container 너비의 25%
+                  double buttonWidth = constraints.maxWidth * 0.4; // Container 너비의 25%
                   double buttonHeight = constraints.maxHeight * 0.5; // Container 높이의 50%
+                  return Container(
+                    child: Center(
+                      child: Container(
+                        width: buttonWidth,
+                        height: buttonHeight,
+                        color: Colors.green,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // 버튼이 클릭되었을 때 수행할 작업
+                          },
+                          style: ElevatedButton.styleFrom(
 
-                  return ElevatedButton(
-                    onPressed: () {
-                      // 버튼이 클릭되었을 때 수행할 작업
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(buttonWidth, buttonHeight),
-                      maximumSize: Size(buttonWidth, buttonHeight),
+                          ),
+                          child: Text('Button'),
+                        ),
+                      ),
                     ),
-                    child: Text('Button'),
                   );
                 },
               ),
+            ),
+          ),
+          // 배너광고
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.red,
             ),
           ),
         ],
