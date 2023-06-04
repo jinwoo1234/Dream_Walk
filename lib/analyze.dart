@@ -2,67 +2,75 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Analyze extends StatelessWidget{
-
+class Analyze extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              StyledButton(
-                buttonText: '평균 수면 시간',
-                onPressed: () {
-                  // 버튼 1을 눌렀을 때 수행할 작업
-                  print('11');
-                },
-              ),
-              StyledButton(
-                buttonText: '그 외 기능1(추가 예정)',
-                onPressed: () {
-                  // 버튼 1을 눌렀을 때 수행할 작업
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
-                      );
-                    },
-                  );
-                },
-              ),
-              StyledButton(
-                buttonText: '그 외 기능2(추가 예정)',
-                onPressed: () {
-                  // 버튼 1을 눌렀을 때 수행할 작업
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
-                      );
-                    },
-                  );
-                },
-              ),
-              StyledButton(
-                buttonText: '그 외 기능3(추가 예정)',
-                onPressed: () {
-                  // 버튼 1을 눌렀을 때 수행할 작업
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(height: 20),
+                StyledButton(
+                  buttonText: '평균 수면 시간',
+                  onPressed: () {
+                    // 버튼 1을 눌렀을 때 수행할 작업
+                    print('11');
+                  },
+                ),
+                SizedBox(height: 20),
+                StyledButton(
+                  buttonText: '그 외 기능1(추가 예정)',
+                  onPressed: () {
+                    // 버튼 1을 눌렀을 때 수행할 작업
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content:
+                              Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
+                        );
+                      },
+                    );
+                  },
+                ),
+                SizedBox(height: 20),
+                StyledButton(
+                  buttonText: '그 외 기능2(추가 예정)',
+                  onPressed: () {
+                    // 버튼 1을 눌렀을 때 수행할 작업
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content:
+                              Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
+                        );
+                      },
+                    );
+                  },
+                ),
+                SizedBox(height: 20),
+                StyledButton(
+                  buttonText: '그 외 기능3(추가 예정)',
+                  onPressed: () {
+                    // 버튼 1을 눌렀을 때 수행할 작업
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content:
+                              Text('추가 예정 입니다 🤗', textAlign: TextAlign.center),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
