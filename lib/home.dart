@@ -1,8 +1,11 @@
 
+import 'dart:math';
+
 import 'package:dream_walk/sharedMoney.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -16,6 +19,13 @@ class _HomeState extends State<Home> {
   int _nowDay = 0;
   String _nowSleep = "";
 
+  int _getRandomMoney = 0;
+
+  // 버튼 활성상태(0: 비활성, 1:작은보상, 2:완료보상)
+  int _isButtonOn = 0;
+  Color _buttonColor = Colors.grey;
+  bool _isButtonDisabled = false;
+
   @override
   void initState() {
     super.initState();
@@ -25,18 +35,23 @@ class _HomeState extends State<Home> {
   Future<void> _loadSharedPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _nowMoney = _prefs.getInt('myMoney') ?? 1233;
-      _nowDay = _prefs.getInt('myDay') ?? 2;
-      _nowSleep = _prefs.getString('mySleep') ?? "6:00";
+      _nowMoney = _prefs.getInt('myMoney') ?? 0;
+      _nowDay = _prefs.getInt('myDay') ?? 0;
+      _nowSleep = _prefs.getString('mySleep') ?? "00:00";
     });
-
   }
 
-  Future<void> _addData(String name, int value) async{
+  Future<void> _addMoney(int value) async{
     setState(() {
-      print("add");
+      _nowMoney += value;
     });
-    await _prefs.setInt(name, value);
+    await _prefs.setInt('myMoney', _nowMoney);
+  }
+
+  Future<void> _changeTime(String value) async{
+    setState(() {
+    });
+    await _prefs.setString('mySleep', value);
   }
 
   Future<void> _addCount(int count) async {
@@ -44,6 +59,88 @@ class _HomeState extends State<Home> {
       _nowDay++;
     });
     await _prefs.setInt('myDay', _nowDay);
+  }
+
+  void _openModal() {
+    _getRandomMoney = Random().nextInt(30) + 1;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              height: MediaQuery.of(context).size.height * 0.3, // 화면의 50% 너비로 설정
+              child: Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              setState(() {
+                _openTextModal();
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _openTextModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              height: MediaQuery.of(context).size.height * 0.3, // 화면의 50% 너비로 설정
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Center(
+                  child: Text('$_getRandomMoney point 획득!!'
+                      '(클릭시 닫기)'),
+                ),
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              setState(() {
+                _isButtonDisabled = true;
+                _addMoney(_getRandomMoney);
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _openAdModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: GestureDetector(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
+              child: Image.asset('lib/assets/ad.png', fit:BoxFit.cover,),
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              setState(() {
+                _openModal();
+                //_isButtonDisabled = true;
+                // _addMoney(_getRandomMoney);
+              });
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -201,6 +298,48 @@ class _HomeState extends State<Home> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // 버튼 클릭 이벤트 처리
+                          DateTime now = DateTime.now();
+                          // 5시부터 9시 사이의 랜덤한 시간 생성
+                          DateTime startTime = DateTime(now.year, now.month, now.day, 7);
+                          DateTime endTime = DateTime(now.year, now.month, now.day, 9);
+                          Duration randomDuration = Duration(minutes: Random().nextInt(endTime.difference(startTime).inMinutes));
+                          DateTime randomTime = startTime.add(randomDuration);
+
+                          // HH:MM:SS 형식으로 변환
+                          String formattedTime = DateFormat('HH:mm:ss').format(randomTime);
+
+                          _nowSleep = formattedTime;
+
+                          if (randomTime.hour >= 6 && randomTime.hour < 7) {
+                            _buttonColor = Colors.lightGreenAccent;
+                            _isButtonOn = 1;
+                            _isButtonDisabled = false;
+                          } else if (randomTime.hour >= 7 && randomTime.hour < 9) {
+                            _buttonColor = Colors.yellow;
+                            _isButtonOn = 2;
+                            _isButtonDisabled = false;
+                          } else if (randomTime.hour >= 9 && randomTime.hour < 10) {
+                            _buttonColor = Colors.lightGreenAccent;
+                            _isButtonOn = 1;
+                            _isButtonDisabled = false;
+                          } else {
+                            _buttonColor = Colors.grey;
+                            _isButtonOn = 0;
+                            _isButtonDisabled = true;
+                          }
+                          _changeTime(formattedTime);
+
+                          //print(formattedTime);
+                        },
+                        child: Text('reset time button for test'),
+                      ),
+                    ),
                     Container(
                       width: 0.6 * MediaQuery.of(context).size.width,
                       height: 0.2 * MediaQuery.of(context).size.height,
@@ -250,16 +389,24 @@ class _HomeState extends State<Home> {
                       child: Container(
                         width: buttonWidth,
                         height: buttonHeight,
-                        color: Colors.green,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: _isButtonDisabled ? null : () {
                             // 버튼이 클릭되었을 때 수행할 작업
-                            _addCount(_nowDay);
+                            if(_isButtonOn == 2) {
+                              // 완료보상
+                              _openAdModal();
+                              bool isRewardOpen = false;
+
+                              _addCount(_nowDay);
+                            } else if(_isButtonOn == 1) {
+                              // 작은보상
+                              _openAdModal();
+                            }
                           },
                           style: ElevatedButton.styleFrom(
-
+                            backgroundColor: _buttonColor,
                           ),
-                          child: Text('Button'),
+                          child: Text('reward'),
                         ),
                       ),
                     ),
