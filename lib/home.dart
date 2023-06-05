@@ -270,11 +270,12 @@ class _HomeState extends State<Home> {
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(155, 190, 123, 1.0),
                                       border: Border.all(
-                                        color: Colors.black,
+                                        color: Color.fromRGBO(
+                                            67, 79, 63, 1.0),
 
-                                        width: 0,
+                                        width: 4,
                                       ),
-                                      borderRadius: BorderRadius.circular(30.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -535,8 +536,8 @@ class _HomeState extends State<Home> {
               // 배너광고
               Expanded(
                 flex: 1,
-                child: Container(
-                  color: Colors.red,
+                child: Image(
+                  image: AssetImage('lib/assets/banner.jpg'),
                 ),
               ),
             ],

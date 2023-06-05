@@ -66,6 +66,7 @@ flutter:
   assets:
     - lib/assets/logo.png
     - lib/assets/randombox.jpg
+    - lib/assets/banner.jpg
     - lib/assets/ad.png
     - lib/assets/partner1.jpg
     - lib/assets/partner2.jpg
