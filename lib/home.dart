@@ -26,6 +26,10 @@ class _HomeState extends State<Home> {
   Color _buttonColor = Colors.grey;
   bool _isButtonDisabled = false;
 
+  int _randomMoneyRangeSet = 0;
+  int _randomMoneyRangeStart = 0;
+
+
   @override
   void initState() {
     super.initState();
@@ -62,7 +66,6 @@ class _HomeState extends State<Home> {
   }
 
   void _openModal() {
-    _getRandomMoney = Random().nextInt(30) + 1;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -101,7 +104,7 @@ class _HomeState extends State<Home> {
                 height: double.infinity,
                 child: Center(
                   child: Text('$_getRandomMoney point 획득!!'
-                      '(클릭시 닫기)'),
+                      '\n(클릭시 닫기)'),
                 ),
               ),
             ),
@@ -141,6 +144,10 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  void _changeRandomMoney() {
+    _getRandomMoney = Random().nextInt(_randomMoneyRangeSet) + _randomMoneyRangeStart;
   }
 
   @override
@@ -306,7 +313,7 @@ class _HomeState extends State<Home> {
                           // 버튼 클릭 이벤트 처리
                           DateTime now = DateTime.now();
                           // 5시부터 9시 사이의 랜덤한 시간 생성
-                          DateTime startTime = DateTime(now.year, now.month, now.day, 7);
+                          DateTime startTime = DateTime(now.year, now.month, now.day, 6);
                           DateTime endTime = DateTime(now.year, now.month, now.day, 9);
                           Duration randomDuration = Duration(minutes: Random().nextInt(endTime.difference(startTime).inMinutes));
                           DateTime randomTime = startTime.add(randomDuration);
@@ -320,19 +327,28 @@ class _HomeState extends State<Home> {
                             _buttonColor = Colors.lightGreenAccent;
                             _isButtonOn = 1;
                             _isButtonDisabled = false;
+                            _randomMoneyRangeSet = 10;
+                            _randomMoneyRangeStart = 0;
                           } else if (randomTime.hour >= 7 && randomTime.hour < 9) {
                             _buttonColor = Colors.yellow;
                             _isButtonOn = 2;
                             _isButtonDisabled = false;
+                            _randomMoneyRangeSet = 30;
+                            _randomMoneyRangeStart = 20;
                           } else if (randomTime.hour >= 9 && randomTime.hour < 10) {
                             _buttonColor = Colors.lightGreenAccent;
                             _isButtonOn = 1;
                             _isButtonDisabled = false;
+                            _randomMoneyRangeSet = 10;
+                            _randomMoneyRangeStart = 0;
                           } else {
                             _buttonColor = Colors.grey;
                             _isButtonOn = 0;
                             _isButtonDisabled = true;
+                            _randomMoneyRangeSet = 0;
+                            _randomMoneyRangeStart = 0;
                           }
+                          _changeRandomMoney();
                           _changeTime(formattedTime);
 
                           //print(formattedTime);
@@ -382,6 +398,7 @@ class _HomeState extends State<Home> {
             child: Container(
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
+                  int maxPoint = _randomMoneyRangeStart + _randomMoneyRangeSet;
                   double buttonWidth = constraints.maxWidth * 0.4; // Container 너비의 25%
                   double buttonHeight = constraints.maxHeight * 0.5; // Container 높이의 50%
                   return Container(
@@ -395,8 +412,6 @@ class _HomeState extends State<Home> {
                             if(_isButtonOn == 2) {
                               // 완료보상
                               _openAdModal();
-                              bool isRewardOpen = false;
-
                               _addCount(_nowDay);
                             } else if(_isButtonOn == 1) {
                               // 작은보상
@@ -406,7 +421,7 @@ class _HomeState extends State<Home> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _buttonColor,
                           ),
-                          child: Text('reward'),
+                          child: Text('reward ($_randomMoneyRangeStart ~ $maxPoint) points'),
                         ),
                       ),
                     ),

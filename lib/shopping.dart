@@ -1,15 +1,37 @@
 // tabs/tab_cart.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Shopping extends StatelessWidget {
+class Shopping extends StatefulWidget {
+  @override
+  _ShoppingState createState() => _ShoppingState();
+}
+
+class _ShoppingState extends State<Shopping> {
+  late SharedPreferences _prefs;
+  int _nowMoney = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSharedPreferences();
+  }
+
+  Future<void> _loadSharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _nowMoney = _prefs.getInt('myMoney') ?? 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('10000P'),
+          title: Text('보유 Point : $_nowMoney'),
           centerTitle: true,
           backgroundColor: Colors.blue,
           actions: [
