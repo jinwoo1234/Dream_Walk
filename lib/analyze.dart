@@ -8,6 +8,11 @@ class Analyze extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          title: Text('수면 패턴 분석'),
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -91,7 +96,6 @@ class StyledButton extends StatelessWidget {
       height: 90,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.blue,
       ),
       child: ElevatedButton(
         onPressed: onPressed,
