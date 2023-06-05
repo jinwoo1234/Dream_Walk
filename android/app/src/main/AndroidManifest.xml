@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.TeamDreamWalk.dream_walk">
    <application
-        android:label="dream_walk"
+        android:label="드림워크"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
