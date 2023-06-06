@@ -20,10 +20,21 @@ class Analyze extends StatelessWidget {
               children: [
                 SizedBox(height: 20),
                 StyledButton(
-                  buttonText: '평균 수면 시간',
+                  buttonText: '수면 통계',
                   onPressed: () {
                     // 버튼 1을 눌렀을 때 수행할 작업
-                    print('11');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Container(
+                            width: 300,
+                            height: 300,
+                            child: Image.asset('lib/assets/charts.jpg'),
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
                 SizedBox(height: 20),
@@ -112,3 +123,4 @@ class StyledButton extends StatelessWidget {
     );
   }
 }
+

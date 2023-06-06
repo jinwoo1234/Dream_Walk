@@ -30,10 +30,11 @@ class _ShoppingState extends State<Shopping> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color(0x800080),
         appBar: AppBar(
           title: Text('보유 Point : $_nowMoney'),
           centerTitle: true,
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.deepPurple,
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 16.0),
@@ -51,44 +52,64 @@ class _ShoppingState extends State<Shopping> {
                 runSpacing: 20.0, // 행 사이의 간격
                 children: [
                   BoxItem(
-                    imagePath: 'lib/assets/partner4.jpg',
-                    title: '침팬치와 뽀뽀하기',
-                    points: '1000P',
+                    imagePath: 'lib/assets/candy.jpg',
+                    title: '츄파춥스',
+                    points: 300,
                   ),
                   BoxItem(
-                    imagePath: 'lib/assets/partner3.jpg',
-                    title: '오랑우탄 방구맡기',
-                    points: '2000P',
+                    imagePath: 'lib/assets/mega.jpg',
+                    title: '메가커피',
+                    points: 2000,
                   ),
                   BoxItem(
-                    imagePath: 'lib/assets/partner2.jpg',
-                    title: '고릴라와 데이트',
-                    points: '5000p',
+                    imagePath: 'lib/assets/twosome.jpg',
+                    title: '투썸플레이스',
+                    points: 4500,
                   ),
                   BoxItem(
-                    imagePath: 'lib/assets/partner1.jpg',
-                    title: '+1(더블데이트)',
-                    points: '8000P',
+                    imagePath: 'lib/assets/starbucks.jpg',
+                    title: '스타벅스',
+                    points: 4500,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/moonsang.jpg',
+                    title: '문화상품권',
+                    points: 3000,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/moonsang.jpg',
+                    title: '문화상품권',
+                    points: 5000,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/moonsang.jpg',
+                    title: '문화상품권',
+                    points: 10000,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/happy_money.jpg',
+                    title: '해피머니',
+                    points: 3000,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/happy_money.jpg',
+                    title: '해피머니',
+                    points: 5000,
+                  ),
+                  BoxItem(
+                    imagePath: 'lib/assets/happy_money.jpg',
+                    title: '해피머니',
+                    points: 10000,
                   ),
                   BoxItem(
                     imagePath: 'lib/assets/dogecoin.jpg',
                     title: '도지',
-                    points: '100P',
+                    points: 88,
                   ),
                   BoxItem(
                     imagePath: 'lib/assets/dogecoin.jpg',
                     title: '도지',
-                    points: '100P',
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/dogecoin.jpg',
-                    title: '도지',
-                    points: '100P',
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/dogecoin.jpg',
-                    title: '도지',
-                    points: '100P',
+                    points: 88,
                   ),
                 ],
               ),
@@ -103,7 +124,7 @@ class _ShoppingState extends State<Shopping> {
 class BoxItem extends StatelessWidget {
   final String imagePath;
   final String title;
-  final String points;
+  final int points;
 
   BoxItem({
     required this.imagePath,
@@ -113,38 +134,52 @@ class BoxItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 150,
-          height: 150,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.cover,
+    return TextButton(
+        onPressed: () {
+          // 버튼 1을 눌렀을 때 수행할 작업
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content:
+                Text('업데이트 후 구매 가능합니다 🤗', textAlign: TextAlign.center),
+              );
+            },
+          );
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(imagePath),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
             ),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-        ),
-        SizedBox(height: 8.0),
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          points,
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+            SizedBox(height: 8.0),
+            Text(
+              title,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '$points p',
+              style: TextStyle(
+                color: Colors.amber,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        )
     );
   }
 }

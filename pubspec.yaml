@@ -73,6 +73,13 @@ flutter:
     - lib/assets/partner3.jpg
     - lib/assets/partner4.jpg
     - lib/assets/dogecoin.jpg
+    - lib/assets/mega.jpg
+    - lib/assets/moonsang.jpg
+    - lib/assets/starbucks.jpg
+    - lib/assets/twosome.jpg
+    - lib/assets/candy.jpg
+    - lib/assets/happy_money.jpg
+    - lib/assets/charts.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
