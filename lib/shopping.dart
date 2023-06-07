@@ -42,79 +42,98 @@ class _ShoppingState extends State<Shopping> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Wrap(
-                spacing: 16.0, // 열 사이의 간격
-                runSpacing: 20.0, // 행 사이의 간격
-                children: [
-                  BoxItem(
-                    imagePath: 'lib/assets/candy.jpg',
-                    title: '츄파춥스',
-                    points: 300,
+        body: Column(
+          children: [
+            Expanded(
+              flex: 9,
+              child: SingleChildScrollView(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: Wrap(
+                      spacing: 16.0, // 열 사이의 간격
+                      runSpacing: 20.0, // 행 사이의 간격
+                      children: [
+                        BoxItem(
+                          imagePath: 'lib/assets/candy.jpg',
+                          title: '츄파춥스',
+                          points: 300,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/mega.jpg',
+                          title: '메가커피',
+                          points: 2000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/twosome.jpg',
+                          title: '투썸플레이스',
+                          points: 4500,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/starbucks.jpg',
+                          title: '스타벅스',
+                          points: 4500,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/moonsang.jpg',
+                          title: '문화상품권',
+                          points: 3000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/moonsang.jpg',
+                          title: '문화상품권',
+                          points: 5000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/moonsang.jpg',
+                          title: '문화상품권',
+                          points: 10000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/happy_money.jpg',
+                          title: '해피머니',
+                          points: 3000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/happy_money.jpg',
+                          title: '해피머니',
+                          points: 5000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/happy_money.jpg',
+                          title: '해피머니',
+                          points: 10000,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/dogecoin.jpg',
+                          title: '도지',
+                          points: 88,
+                        ),
+                        BoxItem(
+                          imagePath: 'lib/assets/dogecoin.jpg',
+                          title: '도지',
+                          points: 88,
+                        ),
+                      ],
+                    ),
                   ),
-                  BoxItem(
-                    imagePath: 'lib/assets/mega.jpg',
-                    title: '메가커피',
-                    points: 2000,
                   ),
-                  BoxItem(
-                    imagePath: 'lib/assets/twosome.jpg',
-                    title: '투썸플레이스',
-                    points: 4500,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/starbucks.jpg',
-                    title: '스타벅스',
-                    points: 4500,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/moonsang.jpg',
-                    title: '문화상품권',
-                    points: 3000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/moonsang.jpg',
-                    title: '문화상품권',
-                    points: 5000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/moonsang.jpg',
-                    title: '문화상품권',
-                    points: 10000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/happy_money.jpg',
-                    title: '해피머니',
-                    points: 3000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/happy_money.jpg',
-                    title: '해피머니',
-                    points: 5000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/happy_money.jpg',
-                    title: '해피머니',
-                    points: 10000,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/dogecoin.jpg',
-                    title: '도지',
-                    points: 88,
-                  ),
-                  BoxItem(
-                    imagePath: 'lib/assets/dogecoin.jpg',
-                    title: '도지',
-                    points: 88,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+              Expanded(
+                flex:1,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    child: Image.asset(
+                      'lib/assets/banner.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );

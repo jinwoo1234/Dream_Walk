@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '메인'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.equalizer), label: 'analyze'),
           BottomNavigationBarItem(icon: Icon(Icons.storefront), label: 'shopping'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting'),

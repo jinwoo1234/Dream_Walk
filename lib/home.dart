@@ -19,6 +19,11 @@ class _HomeState extends State<Home> {
   int _nowDay = 0;
   String _nowSleep = "";
 
+  //시나리오용
+  int _testIndex = 0;
+  int _testStartTime = 0;
+  int _testEndTime = 0;
+
   int _getRandomMoney = 0;
 
   // 버튼 활성상태(0: 비활성, 1:작은보상, 2:완료보상)
@@ -141,7 +146,7 @@ class _HomeState extends State<Home> {
               setState(() {
                 _isButtonDisabled = true;
                 _buttonColor = Colors.grey;
-                _addMoney(_getRandomMoney);
+                _addMoney(_getRandomMoney + _bonusMoney);
               });
             },
           ),
@@ -225,7 +230,7 @@ class _HomeState extends State<Home> {
             children: [
               // 상단
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -371,61 +376,95 @@ class _HomeState extends State<Home> {
               ),
               // 중단
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: Container(
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
+                        Transform.translate (
+                          offset: Offset(0.0, -60.0), // 버튼 주위에 외부 간격을 추가합니다.
                           child: ElevatedButton(
                             onPressed: () {
-                              // 버튼 클릭 이벤트 처리
-                              DateTime now = DateTime.now();
-                              // 5시부터 9시 사이의 랜덤한 시간 생성
-                              DateTime startTime = DateTime(now.year, now.month, now.day, 6);
-                              DateTime endTime = DateTime(now.year, now.month, now.day, 9);
-                              Duration randomDuration = Duration(minutes: Random().nextInt(endTime.difference(startTime).inMinutes));
-                              DateTime randomTime = startTime.add(randomDuration);
 
-                              // HH:MM:SS 형식으로 변환
-                              String formattedTime = DateFormat('HH:mm:ss').format(randomTime);
-
-                              _nowSleep = formattedTime;
-
-                              if (randomTime.hour >= 6 && randomTime.hour < 7) {
-                                _buttonColor = Color.fromRGBO(72 , 40, 28, 1);
-                                _isButtonOn = 1;
-                                _isButtonDisabled = false;
-                                _randomMoneyRangeSet = 10;
-                                _randomMoneyRangeStart = 0;
-                              } else if (randomTime.hour >= 7 && randomTime.hour < 9) {
-                                _buttonColor = Color.fromRGBO(255, 235, 59, 0.85);
-                                _isButtonOn = 2;
-                                _isButtonDisabled = false;
-                                _randomMoneyRangeSet = 0;
-                                _randomMoneyRangeStart = 50;
-                              } else if (randomTime.hour >= 9 && randomTime.hour < 10) {
-                                _buttonColor = Color.fromRGBO(72 , 40, 28, 1);
-                                _isButtonOn = 1;
-                                _isButtonDisabled = false;
-                                _randomMoneyRangeSet = 10;
-                                _randomMoneyRangeStart = 0;
+                              if(_testIndex < 10) {
+                                _testStartTime = 7;
+                                _testEndTime = 9;
+                              } else if(_testIndex == 10){
+                                _testStartTime = 6;
+                                _testEndTime = 7;
                               } else {
-                                _buttonColor = Colors.grey;
-                                _isButtonOn = 0;
-                                _isButtonDisabled = true;
-                                _randomMoneyRangeSet = 0;
-                                _randomMoneyRangeStart = 0;
+                                _testStartTime = 4;
+                                _testEndTime = 6;
+                                _resetCount();
                               }
-                              _changeRandomMoney();
-                              _changeTime(formattedTime);
 
+                              _testIndex++;
+
+
+
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      // 버튼 클릭 이벤트 처리
+                                      DateTime now = DateTime.now();
+                                      // 5시부터 9시 사이의 랜덤한 시간 생성
+                                      DateTime startTime = DateTime(now.year, now.month, now.day, _testStartTime);
+                                      DateTime endTime = DateTime(now.year, now.month, now.day, _testEndTime);
+                                      Duration randomDuration = Duration(minutes: Random().nextInt(endTime.difference(startTime).inMinutes));
+                                      DateTime randomTime = startTime.add(randomDuration);
+
+                                      // HH:MM:SS 형식으로 변환
+                                      String formattedTime = DateFormat('HH:mm:ss').format(randomTime);
+
+                                      _nowSleep = formattedTime;
+
+                                      if (randomTime.hour >= 6 && randomTime.hour < 7) {
+                                        _buttonColor = Color.fromRGBO(72 , 40, 28, 1);
+                                        _isButtonOn = 1;
+                                        _isButtonDisabled = false;
+                                        _randomMoneyRangeSet = 10;
+                                        _randomMoneyRangeStart = 0;
+                                      } else if (randomTime.hour >= 7 && randomTime.hour < 9) {
+                                        _buttonColor = Color.fromRGBO(255, 235, 59, 0.85);
+                                        _isButtonOn = 2;
+                                        _isButtonDisabled = false;
+                                        _randomMoneyRangeSet = 0;
+                                        _randomMoneyRangeStart = 50;
+                                      } else if (randomTime.hour >= 9 && randomTime.hour < 10) {
+                                        _buttonColor = Color.fromRGBO(72 , 40, 28, 1);
+                                        _isButtonOn = 1;
+                                        _isButtonDisabled = false;
+                                        _randomMoneyRangeSet = 10;
+                                        _randomMoneyRangeStart = 0;
+                                      } else {
+                                        _buttonColor = Colors.grey;
+                                        _isButtonOn = 0;
+                                        _isButtonDisabled = true;
+                                        _randomMoneyRangeSet = 0;
+                                        _randomMoneyRangeStart = 0;
+                                      }
+                                      _changeRandomMoney();
+                                      _changeTime(formattedTime);
+
+                                      Navigator.of(context).pop(); // 화면을 탭하면 모달을 닫습니다.
+                                    },
+                                    child: Container (
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                                  );
+                                },
+                              );
                               //print(formattedTime);
                             },
-                            child: Text('reset time button for test'),
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(16.0),
+                              minimumSize: Size(150.0, 80.0),
+                              backgroundColor: Colors.deepPurpleAccent,
+                            ),
+                            child: Text('수면 모드'),
                           ),
                         ),
                         Container(

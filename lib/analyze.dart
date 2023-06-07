@@ -13,7 +13,11 @@ class Analyze extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.deepPurple
         ),
-        body: SingleChildScrollView(
+        body: Column(
+          children:[
+        Expanded(
+          flex:9,
+        child: SingleChildScrollView(
           child: Center(
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,6 +92,21 @@ class Analyze extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        ),
+            Expanded(
+              flex:1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  child: Image.asset(
+                    'lib/assets/banner.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
