@@ -80,6 +80,7 @@ flutter:
     - lib/assets/candy.jpg
     - lib/assets/happy_money.jpg
     - lib/assets/charts.jpg
+    - lib/assets/box.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

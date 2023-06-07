@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
             child: Container(
               width: MediaQuery.of(context).size.width * 0.5, // 화면의 50% 너비로 설정
               height: MediaQuery.of(context).size.height * 0.3, // 화면의 50% 너비로 설정
-              child: Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
+              child: _isButtonOn == 1 ? Image.asset('lib/assets/box.png', fit:BoxFit.cover,) : Image.asset('lib/assets/randombox.jpg', fit:BoxFit.cover,),
             ),
             onTap: () {
               Navigator.of(context).pop();
@@ -387,15 +387,15 @@ class _HomeState extends State<Home> {
                           child: ElevatedButton(
                             onPressed: () {
 
-                              if(_testIndex < 10) {
+                              if(_testIndex < 6) {
                                 _testStartTime = 7;
                                 _testEndTime = 9;
-                              } else if(_testIndex == 10){
-                                _testStartTime = 6;
-                                _testEndTime = 7;
-                              } else {
+                              } else if(_testIndex == 6){
                                 _testStartTime = 4;
                                 _testEndTime = 6;
+                              } else {
+                                _testStartTime = 6;
+                                _testEndTime = 7;
                                 _resetCount();
                               }
 
